@@ -5,6 +5,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+// import routes
+const authRoutes = require("./routes/auth");
+const { auth } = require("firebase-admin");
+
 // app
 const app = express();
 
@@ -24,11 +28,7 @@ app.use(bodyParser.json({ limit: "2mb" }));
 app.use(cors());
 
 // route
-app.get("/api", (req, res) => {
-  res.json({
-    data: "hey how are you",
-  });
-});
+app.use("/api", authRoutes);
 
 // port
 const port = process.env.PORT || 8000;
